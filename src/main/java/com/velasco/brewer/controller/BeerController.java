@@ -15,20 +15,26 @@ import com.velasco.brewer.model.Beer;
 public class BeerController {
 	
 	@RequestMapping("/beer/new")
-	public String create() {
+	public String create(Beer beer) {
+		//model.addAttribute(new Beer()); // Make object available to dispatcher
 		return "beer/BeerRegister";
 	}
 	
 	@RequestMapping(value = "/beer/new", method = RequestMethod.POST)
 	public String register(@Valid Beer beer, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			model.addAttribute("message", "Erro no formulário");
-			return "beer/BeerRegister";
+			model.addAttribute(beer);
+			return create(beer);
 		}
 		
 		attributes.addFlashAttribute("message", "Cerveja salva com sucesso");
-		System.out.println("teste");
 		return "redirect:/beer/new";
+	}
+	
+	@RequestMapping("/beers/register")
+	public String cadastro()
+	{
+		return "beer/cadastro-produto";
 	}
 
 }
