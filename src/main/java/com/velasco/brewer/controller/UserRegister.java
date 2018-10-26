@@ -26,7 +26,7 @@ public class UserRegister {
 			return create(user);
 		}
 		
-		attributes.addFlashAttribute("message", "Cliente salvo com sucesso");
+		attributes.addFlashAttribute("message", "Usuário salvo com sucesso");
 		return "redirect:/user/new";
 	}
 	

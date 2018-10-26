@@ -5,6 +5,8 @@
 	layout:decorator="'layouts/PatternLayout'">
 <head>
 	<title>Cadastro de Usuário</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+	
 </head>
 <body>
 <section class="aw-layout-content  js-content" layout:fragment="content">
@@ -45,9 +47,8 @@
 				</div>
 				<div class="col-sm-3 form-group">
 					<label for="status">Status</label>
-					<div class="checkbox">
-						<input type="checkbox" id="status" value="">
-						<label for="status">Ativo</label>
+					<div>
+						<input type="checkbox" id="status" value="" class="js-status" data-size="small" data-off-color="danger" data-on-text="Ativo" data-off-text="Inativo">
 					</div>
 				</div>
 			</div>
@@ -60,7 +61,7 @@
 							<label>Administrador</label>
 						</div>
 						<div class="checkbox checkbox-inline">
-							<input type="checkbox" id="group">
+							<input type="checkbox" id="group2">
 							<label>Vendedor</label>
 						</div>
 					</div>
@@ -73,7 +74,13 @@
 			</div>
 		</form>
 	</div>
-	
 </section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
 </body>
 </html>
