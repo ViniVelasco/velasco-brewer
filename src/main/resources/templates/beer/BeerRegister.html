@@ -3,7 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="'layouts/PatternLayout'">
-<!-- <head></head> -->
+<head>
+	<title>Cadastro de Cerveja</title>
+</head>
 <body>
 <section class="aw-layout-content  js-content" layout:fragment="content">
 	<div class="page-header">
@@ -114,7 +116,7 @@
 		</form>
 	</div>
 	
-	<div th:replace="style/FastRegisterStyle::modal">></div>
+	<div th:replace="style/FastRegisterStyle::modal"></div>
 </section>
 </body>
 </html>
