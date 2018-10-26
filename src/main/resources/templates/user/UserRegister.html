@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layouts/PatternLayout'">
+<head>
+	<title>Cadastro de Usuário</title>
+</head>
+<body>
+<section class="aw-layout-content  js-content" layout:fragment="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de Usuário
+			</h1>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="POST" th:object="${user}" class="form-vertical  js-form-loading">
+			<div class="row">
+				<div class="col-sm-12 form-group">
+					<label for="name">Nome</label>
+					<input id="name" type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 form-group">
+					<label for="email">Email</label>
+					<input id="email" type="email" class="form-control"/>
+				</div>
+				<div class="col-sm-3 form-group">
+					<label for="dateOfBirth" >Data de Nascimento</label>
+					<input id="dateOfBirth" type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 form-group">
+					<label for="password">Senha</label>
+					<input id="password" type="password" class="form-control"/>
+				</div>
+				<div class="col-sm-3 form-group">
+					<label for="passwordConfirm">Confirmação de Senha</label>
+					<input id="passwordConfirm" type="password" class="form-control"/>
+				</div>
+				<div class="col-sm-3 form-group">
+					<label for="status">Status</label>
+					<div class="checkbox">
+						<input type="checkbox" id="status" value="">
+						<label for="status">Ativo</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 form-group">
+					<label for="group">Grupo</label>
+					<div>
+						<div class="checkbox checkbox-inline">
+							<input type="checkbox" id="group">
+							<label>Administrador</label>
+						</div>
+						<div class="checkbox checkbox-inline">
+							<input type="checkbox" id="group">
+							<label>Vendedor</label>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+	
+</section>
+</body>
+</html>
