@@ -35,10 +35,10 @@ public class BeerController {
 	
 	@RequestMapping(value = "/beer/new", method = RequestMethod.POST)
 	public ModelAndView register(@Valid Beer beer, BindingResult result, Model model, RedirectAttributes attributes) {
-		if(result.hasErrors()) {
+/*		if(result.hasErrors()) {
 			model.addAttribute(beer);
 			return create(beer);
-		}
+		}*/
 		
 		attributes.addFlashAttribute("message", "Cerveja salva com sucesso");
 		return new ModelAndView("redirect:/beer/new");
