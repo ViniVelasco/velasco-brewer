@@ -13,7 +13,7 @@ public enum Flavor {
 		this.description = description;
 	}
 	
-	public String getDescricao() {
+	public String getDescription() {
 		return description;
 	}
 }
