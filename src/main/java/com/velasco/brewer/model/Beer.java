@@ -48,10 +48,12 @@ public class Beer {
 	private BigDecimal alcoholContent;
 	
 	@DecimalMax(value = "100", message="A comissão deve ser igual ou menor que 100")
+	@NotNull(message = "A comissão é obrigatória")
 	private BigDecimal commission;
 	
 	@Max(value = 9999, message = "A quantidade em estoque deve ser menor que 9999")
 	@Column(name = "stock")
+	@NotNull(message = "A quantidade em estoque é obrigatória")
 	private BigDecimal stock;
 	
 	@Enumerated(EnumType.STRING)
