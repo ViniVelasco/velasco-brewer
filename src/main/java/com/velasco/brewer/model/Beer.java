@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.velasco.brewer.validation.SKU;
+
 @Entity
 @Table(name = "beer")
 public class Beer {
@@ -24,6 +26,7 @@ public class Beer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@SKU
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku;
 	
