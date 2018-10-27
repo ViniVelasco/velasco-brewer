@@ -40,6 +40,12 @@ public class BeerController {
 			return create(beer);
 		}*/
 		
+		System.out.println(beer.getSku());
+		System.out.println(beer.getFlavor());
+		
+		if(beer.getStyle() != null) {
+			System.out.println(beer.getStyle().getId());
+		}
 		attributes.addFlashAttribute("message", "Cerveja salva com sucesso");
 		return new ModelAndView("redirect:/beer/new");
 	}
