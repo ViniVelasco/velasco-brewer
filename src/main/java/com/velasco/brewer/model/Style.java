@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "style")
@@ -16,9 +19,11 @@ public class Style implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull(message = "Nome é obrigatório")
+	@Size(min = 1, max = 15, message = "O tamanho do estilo deve estar entre 1 e 15")
 	private String name;
 	
 	@OneToMany(mappedBy = "style")
