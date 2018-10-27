@@ -76,7 +76,7 @@
 					<div>
 						<th:block th:each="origin : ${origins}">
 							<div class="radio radio-inline">
-								<input th:id="|id_${origin}|" type="radio" name="${origin.name}" th:value="${origin}"  th:field="*{origin}">
+								<input th:id="|id_${origin}|" type="radio" th:value="${origin}" th:field="*{origin}">
 								<label th:for="|id_${origin}|" th:text="${origin.description}"></label>
 							</div>
 						</th:block>

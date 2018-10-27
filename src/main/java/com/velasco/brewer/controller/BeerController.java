@@ -15,6 +15,7 @@ import com.velasco.brewer.model.Beer;
 import com.velasco.brewer.model.Flavor;
 import com.velasco.brewer.model.Origin;
 import com.velasco.brewer.repository.Styles;
+import com.velasco.brewer.service.BeerRegisterService;
 
 
 @Controller
@@ -22,6 +23,9 @@ public class BeerController {
 	
 	@Autowired
 	private Styles styles;
+	
+	@Autowired
+	private BeerRegisterService beerRegisterService;
 	
 	@RequestMapping("/beer/new")
 	public ModelAndView create(Beer beer) {
@@ -35,17 +39,12 @@ public class BeerController {
 	
 	@RequestMapping(value = "/beer/new", method = RequestMethod.POST)
 	public ModelAndView register(@Valid Beer beer, BindingResult result, Model model, RedirectAttributes attributes) {
-/*		if(result.hasErrors()) {
+		if(result.hasErrors()) {
 			model.addAttribute(beer);
 			return create(beer);
-		}*/
-		
-		System.out.println(beer.getSku());
-		System.out.println(beer.getFlavor());
-		
-		if(beer.getStyle() != null) {
-			System.out.println(beer.getStyle().getId());
 		}
+
+		beerRegisterService.save(beer);
 		attributes.addFlashAttribute("message", "Cerveja salva com sucesso");
 		return new ModelAndView("redirect:/beer/new");
 	}

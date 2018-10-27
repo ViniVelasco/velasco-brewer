@@ -9,7 +9,7 @@ public class StyleConverter implements Converter<String, Style> {
 
 	@Override
 	public Style convert(String source) {
-		if(StringUtils.isEmpty(source)) {
+		if(!StringUtils.isEmpty(source)) {
 			Style style = new Style();
 			style.setId(Long.valueOf(source));
 			return style;
