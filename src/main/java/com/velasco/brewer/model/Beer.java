@@ -37,8 +37,8 @@ public class Beer {
 	
 	private BigDecimal commission;
 	
-	@Column(name = "stockQuantity")
-	private BigDecimal stockQuantity;
+	@Column(name = "stock")
+	private BigDecimal stock;
 	
 	@Enumerated(EnumType.STRING)
 	private Origin origin;
@@ -95,11 +95,11 @@ public class Beer {
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
-	public BigDecimal getStockQuantity() {
-		return stockQuantity;
+	public BigDecimal getStock() {
+		return stock;
 	}
-	public void setStockQuantity(BigDecimal stockQuantity) {
-		this.stockQuantity = stockQuantity;
+	public void setStock(BigDecimal stock) {
+		this.stock = stock;
 	}
 	public Origin getOrigin() {
 		return origin;
@@ -143,6 +143,8 @@ public class Beer {
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 }

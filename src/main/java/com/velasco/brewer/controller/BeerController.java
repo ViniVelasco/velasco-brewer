@@ -2,6 +2,7 @@ package com.velasco.brewer.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.velasco.brewer.model.Beer;
+import com.velasco.brewer.repository.Beers;
 
 @Controller
 public class BeerController {
+
+	@Autowired
+	private Beers beers;
 	
 	@RequestMapping("/beer/new")
 	public String create(Beer beer) {
-		//model.addAttribute(new Beer()); // Make object available to dispatcher
 		return "beer/BeerRegister";
 	}
 	
