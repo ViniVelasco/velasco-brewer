@@ -9,26 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.velasco.brewer.model.Client;
+import com.velasco.brewer.model.City;
 
 @Controller
-public class ClientController {
-	
-	@RequestMapping("/client/new")
-	public String create(Client client) {
+public class CitiesController {
+	@RequestMapping("/city/new")
+	public String create(City city) {
 		//model.addAttribute(new Beer()); // Make object available to dispatcher
-		return "client/ClientRegister";
+		return "city/CityRegister";
 	}
 	
-	@RequestMapping(value = "/client/new", method = RequestMethod.POST)
-	public String register(@Valid Client client, BindingResult result, Model model, RedirectAttributes attributes) {
+	@RequestMapping(value = "/city/new", method = RequestMethod.POST)
+	public String register(@Valid City city, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			model.addAttribute(client);
-			return create(client);
+			model.addAttribute(city);
+			return create(city);
 		}
 		
-		attributes.addFlashAttribute("message", "Cliente salvo com sucesso");
-		return "redirect:/client/new";
+		attributes.addFlashAttribute("message", "Cidade salva com sucesso");
+		return "redirect:/city/new";
 	}
-	
 }

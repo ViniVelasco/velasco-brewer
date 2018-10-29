@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.velasco.brewer.model.User;
 
 @Controller
-public class UserRegister {
+public class UsersRegister {
 
 	@RequestMapping("/user/new")
 	public String create(User user) {

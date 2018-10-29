@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.velasco.brewer.exception.NameStyleAlreadyRegisteredException;
 import com.velasco.brewer.model.Style;
 import com.velasco.brewer.service.StyleRegisterService;
 
 
 @Controller
-public class StyleController {
+public class StylesController {
 
 	@Autowired
 	private StyleRegisterService styleRegisterService;
@@ -33,7 +34,13 @@ public class StyleController {
 			return create(style);
 		}
 		
-		styleRegisterService.save(style);
+		try {
+			styleRegisterService.save(style);
+		} catch (NameStyleAlreadyRegisteredException e) {
+			result.rejectValue("name", e.getMessage(), e.getMessage());
+			return create(style);
+		}
+		
 		attributes.addFlashAttribute("message", "Estilo salvo com sucesso");
 		return "redirect:/style/new";
 	}

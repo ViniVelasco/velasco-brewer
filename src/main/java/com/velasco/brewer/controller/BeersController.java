@@ -19,7 +19,7 @@ import com.velasco.brewer.service.BeerRegisterService;
 
 
 @Controller
-public class BeerController {
+public class BeersController {
 	
 	@Autowired
 	private Styles styles;
