@@ -19,7 +19,7 @@ import com.velasco.brewer.service.BeerRegisterService;
 
 
 @Controller
-@RequestMapping("/beer")
+@RequestMapping("/beers")
 public class BeersController {
 	
 	@Autowired
@@ -47,7 +47,7 @@ public class BeersController {
 
 		beerRegisterService.save(beer);
 		attributes.addFlashAttribute("message", "Cerveja salva com sucesso");
-		return new ModelAndView("redirect:/beer/new");
+		return new ModelAndView("redirect:/beers/new");
 	}
 
 }
