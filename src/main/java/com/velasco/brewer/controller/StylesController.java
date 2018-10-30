@@ -20,18 +20,19 @@ import com.velasco.brewer.service.StyleRegisterService;
 
 
 @Controller
+@RequestMapping("/style")
 public class StylesController {
 
 	@Autowired
 	private StyleRegisterService styleRegisterService;
 	
-	@RequestMapping("/style/new")
+	@RequestMapping("/new")
 	public String create(Style style) {
 		//model.addAttribute(new Beer()); // Make object available to dispatcher
 		return "style/StyleRegister";
 	}
 	
-	@RequestMapping(value = "/style/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String register(@Valid Style style, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			model.addAttribute(style);
@@ -49,7 +50,7 @@ public class StylesController {
 		return "redirect:/style/new";
 	}
 	
-	@RequestMapping(value = "/styles", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Style style, BindingResult result) {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());

@@ -19,6 +19,7 @@ import com.velasco.brewer.service.BeerRegisterService;
 
 
 @Controller
+@RequestMapping("/beer")
 public class BeersController {
 	
 	@Autowired
@@ -27,7 +28,7 @@ public class BeersController {
 	@Autowired
 	private BeerRegisterService beerRegisterService;
 	
-	@RequestMapping("/beer/new")
+	@RequestMapping("/new")
 	public ModelAndView create(Beer beer) {
 		ModelAndView mv = new ModelAndView("beer/BeerRegister");
 		mv.addObject("flavors", Flavor.values());
@@ -37,7 +38,7 @@ public class BeersController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/beer/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView register(@Valid Beer beer, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			model.addAttribute(beer);
