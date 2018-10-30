@@ -1,51 +1,68 @@
-$(function() {
+var Brewer = Brewer || {};
+
+Brewer.StyleFastRegister = function({
 	
-	var modal = $('#modalFastRegister');
-	var saveButton = modal.find('.js-modal-register-save-btn');
-	var form = modal.find('form');
-	form.on('submit', function(e) { e.preventDefault() });
-	var url = form.attr('action');
-	var inputNameStyle = $('#nameStyle');
-	var errorMessageContainer = $('.js-message-fast-register-style');
+	function StyleFastRegister() {
+		
+		this.modal = $('#modalFastRegister');
+		this.saveButton = this.modal.find('.js-modal-register-save-btn');
+		this.form = this.modal.find('form');
+		this.url = this.form.attr('action');
+		this.inputNameStyle = $('#nameStyle');
+		this.errorMessageContainer = $('.js-message-fast-register-style');
+	}
 	
-	modal.on('shown.bs.modal', onModalShow);
-	modal.on('hide.bs.modal', onModalClose);
-	saveButton.on('click', onSaveButtonClick);
+	StyleFastRegister.prototype.initialize = function() {
+		this.form.on('submit', function(e) { e.preventDefault() });
+		this.modal.on('shown.bs.modal', onModalShow.bind(this));
+		this.modal.on('hide.bs.modal', onModalClose.bind(this));
+		this.saveButton.on('click', onSaveButtonClick.bind(this));
+		
+	}
 	
 	function onModalShow() {
-		inputNameStyle.focus();
+		this.inputNameStyle.focus();
 	}
 	
 	function onModalClose() {
-		inputNameStyle.val('');
-		errorMessageContainer.addClass('hidden');
-		form.find('.form-group').removeClass('has-error');
+		this.inputNameStyle.val('');
+		this.errorMessageContainer.addClass('hidden');
+		this.form.find('.form-group').removeClass('has-error');
 	}
 	
 	function onSaveButtonClick() {
-		var nameStyle = inputNameStyle.val().trim();
+		var nameStyle = this.inputNameStyle.val().trim();
 		$.ajax({
-			url: url,
+			url: this.url,
 			method: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({ 'name': nameStyle }),
-			error: onErrorSavingStyle,
-			success: onStyleSaved
+			error: onErrorSavingStyle.bind(this),
+			success: onStyleSaved.bind(this.)
 		});
 	}
 	
 	function onErrorSavingStyle(obj) {
 		var errorMessage = obj.responseText;
-		errorMessageContainer.removeClass('hidden');
-		errorMessageContainer.html('<span>' + errorMessage + '</span>');
-		form.find('.form-group').addClass('has-error');
+		this.errorMessageContainer.removeClass('hidden');
+		this.errorMessageContainer.html('<span>' + errorMessage + '</span>');
+		this.form.find('.form-group').addClass('has-error');
 	} 
 	
 	function onStyleSaved(style) {
 		var comboStyle = $('#styleCombo');
 		comboStyle.append('<option value=' + style.id + '>' + style.name + '</option>');
 		comboStyle.val(style.id);
-		modal.modal('hide');
+		this.modal.modal('hide');
 	}
+	
+	return StyleFastRegister;
+	
+}());
+
+
+$(function() {
+	var styleFastRegister = new Brewer.StyleFastRegister();
+	styleFastRegister.initialize();
 	
 });
