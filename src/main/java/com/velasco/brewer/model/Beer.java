@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -73,69 +75,96 @@ public class Beer {
 	@NotBlank(message = "A descrição é obrigatória")
 	private String description;
 	
+	@PrePersist
+	@PreUpdate
+	private void prePersistUpdate() {
+		sku = sku.toUpperCase();
+	}
+	
 	public String getSku() {
 		return sku;
 	}
+	
 	public void setSku(String sku) {
 		this.sku = sku;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
+	
 	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
+	
 	public BigDecimal getAlcoholContent() {
 		return alcoholContent;
 	}
+	
 	public void setAlcoholContent(BigDecimal alcoholContent) {
 		this.alcoholContent = alcoholContent;
 	}
+	
 	public BigDecimal getCommission() {
 		return commission;
 	}
+	
 	public void setCommission(BigDecimal commission) {
 		this.commission = commission;
 	}
+	
 	public BigDecimal getStock() {
 		return stock;
 	}
+	
 	public void setStock(BigDecimal stock) {
 		this.stock = stock;
 	}
+	
 	public Origin getOrigin() {
 		return origin;
 	}
+	
 	public void setOrigin(Origin origin) {
 		this.origin = origin;
 	}
+	
 	public Flavor getFlavor() {
 		return flavor;
 	}
+	
 	public void setFlavor(Flavor flavor) {
 		this.flavor = flavor;
 	}
+	
 	public Style getStyle() {
 		return style;
 	}
+	
 	public void setStyle(Style style) {
 		this.style = style;
 	}
