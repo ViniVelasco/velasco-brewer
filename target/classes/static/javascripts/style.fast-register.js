@@ -1,9 +1,8 @@
 var Brewer = Brewer || {};
 
-Brewer.StyleFastRegister = function({
+Brewer.StyleFastRegister = (function() {
 	
 	function StyleFastRegister() {
-		
 		this.modal = $('#modalFastRegister');
 		this.saveButton = this.modal.find('.js-modal-register-save-btn');
 		this.form = this.modal.find('form');
@@ -38,7 +37,7 @@ Brewer.StyleFastRegister = function({
 			contentType: 'application/json',
 			data: JSON.stringify({ 'name': nameStyle }),
 			error: onErrorSavingStyle.bind(this),
-			success: onStyleSaved.bind(this.)
+			success: onStyleSaved.bind(this)
 		});
 	}
 	
