@@ -27,7 +27,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.velasco.brewer.controller.BeersController;
 import com.velasco.brewer.controller.converter.StyleConverter;
-import com.velasco.brewer.thymeleaf.processor.BrewerDialect;
+import com.velasco.brewer.thymeleaf.BrewerDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
