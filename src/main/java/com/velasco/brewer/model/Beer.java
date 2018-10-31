@@ -75,6 +75,11 @@ public class Beer {
 	@NotBlank(message = "A descrição é obrigatória")
 	private String description;
 	
+	private String photo;
+	
+	@Column(name = "content_type")
+	private String contentType;
+	
 	@PrePersist
 	@PreUpdate
 	private void prePersistUpdate() {
@@ -169,6 +174,22 @@ public class Beer {
 		this.style = style;
 	}
 	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
