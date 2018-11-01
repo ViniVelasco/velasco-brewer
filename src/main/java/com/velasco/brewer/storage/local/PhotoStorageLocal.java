@@ -2,9 +2,11 @@ package com.velasco.brewer.storage.local;
 
 import static java.nio.file.FileSystems.getDefault;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.velasco.brewer.storage.PhotoStorage;
 
-public class PhotoStorageLocal implements PhotoStorage{
+public class PhotoStorageLocal implements PhotoStorage {
 
 	private static final Logger logger = LoggerFactory.getLogger(PhotoStorageLocal.class);
 	
@@ -27,7 +29,28 @@ public class PhotoStorageLocal implements PhotoStorage{
 		this.local = path;
 		createFolders();
 	}
+	
 
+	@Override
+	public String temporarySave(MultipartFile[] files) {
+		String newName = null;
+		if(files != null && files.length > 0) {
+			MultipartFile file = files[0];
+			newName = renameFile(file.getOriginalFilename());
+			try {
+				file.transferTo(new File(this.temporaryLocal.toAbsolutePath().toString() + getDefault().getSeparator() + newName));
+			} catch (IOException e) {
+				throw new RuntimeException("Erro salvando a foto na pasta temporária", e);
+			}
+			
+			return newName;
+			
+		}
+		
+		return newName;
+		
+	}
+	
 	private void createFolders() {
 		try {
 			Files.createDirectories(this.local);
@@ -44,10 +67,15 @@ public class PhotoStorageLocal implements PhotoStorage{
 		}
 		
 	}
-
-	@Override
-	public void temporarySave(MultipartFile[] files) {
-		System.out.print("Salvando");
+	
+	private String renameFile(String fileNameOriginal) {
+		String newName = UUID.randomUUID().toString() + "_" + fileNameOriginal;
 		
+		if(logger.isDebugEnabled()) {
+			logger.debug(String.format("Nome original %s, novo nome do arquivo: %s", fileNameOriginal, newName));
+		}
+		
+		return newName;
 	}
+	
 }
