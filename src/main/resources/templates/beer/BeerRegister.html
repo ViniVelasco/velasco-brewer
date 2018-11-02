@@ -115,12 +115,14 @@
 					<input type="hidden" th:field="*{contentType}"/>
 				
 					<label class="control-label">Foto</label>
-					<div id="upload-drop" class="bw-upload">
-						<i class="glyphicon glyphicon-cloud-upload"></i>
-						<span>Arraste a foto aqui ou </span>
-						<a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpeg,.jpg,.png,.gif"/></a>
+					<div class="js-container-beer-photo">
+						<div id="upload-drop" class="bw-upload">
+							<i class="glyphicon glyphicon-cloud-upload"></i>
+							<span>Arraste a foto aqui ou </span>
+							<a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpeg,.jpg,.png,.gif"/></a>
+						</div>
 					</div>
-				</div>
+				</div>	
 			</div>
 			
 			<div class="form-group">
@@ -131,28 +133,51 @@
 	</div>
 	
 	<div th:replace="style/FastRegisterStyle::modal"></div>
+	<th:block th:replace="hbs/BeerPhoto"></th:block>
 </section>
 
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/style.fast-register.js}"></script>
 	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
 	
 	<script>
 		$(function(){
-			var seetings = {
+			var settings = {
 					type: 'json',
 					filelimit: 1,
 					allow: '*.(jpg|jpeg|png|gif)',
 					action: '/brewer/photos',
 					complete: function(response) {
-						$('input[name=photo]').val(response.name);
-						$('input[name=contentType]').val(response.contentType);
+						var inputNamePhoto = $('input[name=photo]');
+						var inputContentType = $('input[name=contentType]');
+						
+						var source = $('#beer-photo').html();
+						var template = Handlebars.compile(source);
+						var html = template({photoName: response.name});
+						
+						var containerBeerPhoto = $('.js-container-beer-photo');
+						
+						var uploadDrop = $('#upload-drop');
+						
+						inputNamePhoto.val(response.name);
+						inputContentType.val(response.contentType);
+						
+						uploadDrop.addClass('hidden');
+						containerBeerPhoto.append(html);
+						
+						$('.js-remove-photo').on('click', function(){
+							$('.js-beer-photo').remove();
+							uploadDrop.removeClass('hidden');
+							inputNamePhoto.val("");
+							inputContentType.val("");
+						});
 					}
 			};
 			
-			UIkit.uploadSelect($('#upload-select'), seetings);
-			UIkit.uploadDrop('#upload-drop', seetings);
+			UIkit.uploadSelect($('#upload-select'), settings);
+			UIkit.uploadDrop('#upload-drop', settings);
 		});
 	</script>
 </th:block>
