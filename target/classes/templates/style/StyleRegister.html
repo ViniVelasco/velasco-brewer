@@ -22,7 +22,7 @@
 			<th:block th:include="fragments/ValidationErrorMessages"></th:block>
 		
 			<div class="row">
-				<div class="col-sm-12 form-group" th:classappend="${#fields.hasErrors('name')} ? has-error">
+				<div class="col-sm-12 form-group bw-required" th:classappend="${#fields.hasErrors('name')} ? has-error">
 					<label for="name" class="control-label">Nome</label>
 					<input id="name" name="name" type="text" class="form-control"/>
 				</div>

@@ -7,6 +7,10 @@
 .bw-glyphicon-large {
 	font-size: 18px;
 }
+
+.bw-required > .control-label:after {
+	content: "*"
+}
  
 /*
 ###########################
