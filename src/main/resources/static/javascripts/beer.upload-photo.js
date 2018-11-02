@@ -27,6 +27,10 @@ Brewer.UploadPhoto = (function() {
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
 		UIkit.uploadDrop(this.uploadDrop, settings);
+		
+		if (this.inputNamePhoto.val()) {
+			onUploadComplete.call(this, ({name: this.inputNamePhoto.val(), contentType: this.inputContentType.val()}));
+		}
 	}
 	
 	function onUploadComplete(response) {
