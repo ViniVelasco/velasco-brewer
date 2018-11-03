@@ -28,62 +28,63 @@
 	</div>
 	
 	<div class="container-fluid">
-		<form method="GET">
-		<div class="row">
-			<div class="form-group  col-sm-6">
-				<label class="control-label" for="sku">SKU</label>
-				<input type="text" class="form-control" id="sku" autofocus="autofocus"/>
-			</div>
+		<form method="GET" th:object="${beerFilter}">
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="sku">SKU</label>
+					<input type="text" class="form-control" id="sku" autofocus="autofocus" th:field="*{sku}"/>
+				</div>
 				
-			<div class="form-group  col-sm-6" >
-				<label class="control-label" for="name">Nome</label>
-				<input type="text" class="form-control" id="name"/>
+				<div class="form-group  col-sm-6" >
+					<label class="control-label" for="name">Nome</label>
+					<input type="text" class="form-control" id="name" th:field="*{name}"/>
+				</div>
 			</div>
-		</div>
 			
-		<div class="row">
-			<div class="form-group  col-sm-6">
-				<label class="control-label" for="styles">Estilo</label>
-				<select id="styles" class="form-control">
-	                <option value="">Todos os estilos</option>
-	                <option th:each="style : ${styles}" th:text="${style.name}" th:value="${style.id}"></option>
-	            </select>
-			</div>
-			<div class="form-group  col-sm-6">
-				<label class="control-label" for="flavor">Sabor</label> 
-				<select id="flavor" class="form-control">
-	                <option value="">Todos os sabores</option>
-	                <option th:each="flavor : ${flavors}" th:value="${flavor}" th:text="${flavor.description}"></option>
-	            </select>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="form-group  col-sm-6">
-				<label class="control-label">Origem</label> 
-				<div>
-	 				<th:block th:each="origin : ${origins}">
-	 					<div class="radio  radio-inline">
-	    					<input th:id="|id_${origin}|" type="radio" th:value="${origin}" name="origin"/>
-	    					<label th:for="|id_${origin}|" th:text="${origin.description}">Nacional</label>
-	   					</div>
-	 				</th:block>
-	 					<div class="radio  radio-inline">
-	    				<input id=allOrigins type="radio" th:checked="*{origin} == null" name="origin"/>
-	    				<label for="allOrigins" >Todas</label>
-	   				</div>
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="style">Estilo</label>
+					<select id="style" class="form-control" th:field="*{style}">
+	                    <option value="">Todos os estilos</option>
+	                    <option th:each="style : ${styles}" th:text="${style.name}" th:value="${style.id}"></option>
+	                </select>
+				</div>
+				
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="sabor">Sabor</label> 
+					<select id="flavor" class="form-control" th:field="*{flavor}">
+	                    <option value="">Todos os sabores</option>
+	                    <option th:each="flavor : ${flavors}" th:value="${flavor}" th:text="${flavor.description}"></option>
+	                </select>
 				</div>
 			</div>
-	
-			<div class="col-sm-6  form-group">
-				<label for="value">Preço unitário</label>
-				<div class="form-inline">
-					<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valueIn"/>
-					<label for="precoAte" class="aw-form-label-between">até</label>
-					<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valueTo"/>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label">Origem</label> 
+					<div>
+	  					<th:block th:each="origin: ${origins}">
+	  						<div class="radio  radio-inline">
+		    					<input th:id="|id_${origem}|" type="radio" th:value="${origin}" th:field="*{origin}"/>
+		    					<label th:for="|id_${origem}|" th:text="${origin.description}">Nacional</label>
+	    					</div>
+	  					</th:block>
+	  					<div class="radio  radio-inline">
+		    				<input id="todasOrigens" type="radio" th:checked="*{origin} == null" name="origin"/>
+		    				<label for="todasOrigens" >Todas</label>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6  form-group">
+					<label for="valueIn">Valor unitário</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valueIn" th:field="*{valueIn}"/>
+						<label for="valueIn" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valueTo" th:field="*{valueTo}"/>
+					</div>
 				</div>
 			</div>
-		</div>
 			
 			<button type="submit" class="btn  btn-primary">Pesquisar</button>
 		</form>
@@ -123,7 +124,7 @@
 						
 					</tr>
 					
-					<tr th:if="${#lists.isEmpty(beer)}">
+					<tr th:if="${#lists.isEmpty(beers)}">
 						<td colspan="7">Nenhuma cerveja encontrada</td>
 					</tr>
 				</tbody>
@@ -132,10 +133,5 @@
 	</div>
 	
 </section>
-	
-
-<th:block layout:fragment="javascript-extra">
-	<script th:src="@{/javascripts/style.fast-register.js}"></script> 
-</th:block>
 </body>
 </html>

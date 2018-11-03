@@ -17,6 +17,7 @@ import com.velasco.brewer.model.Flavor;
 import com.velasco.brewer.model.Origin;
 import com.velasco.brewer.repository.Beers;
 import com.velasco.brewer.repository.Styles;
+import com.velasco.brewer.repository.filter.BeerFilter;
 import com.velasco.brewer.service.BeerRegisterService;
 
 
@@ -56,12 +57,13 @@ public class BeersController {
 	}
 	
 	@GetMapping
-	public ModelAndView search() {
+	public ModelAndView search(BeerFilter beerFilter, BindingResult result) {
 		ModelAndView mv = new ModelAndView("beer/BeerSearch");
+		mv.addObject("flavors", Flavor.values());
 		mv.addObject("styles", styles.findAll());
 		mv.addObject("origins", Origin.values());
-		mv.addObject("flavors", Flavor.values());
-		mv.addObject("beers", beers.findAll());
+		
+		mv.addObject("beers", beers.filter(beerFilter));
 		return mv;
 	}
 
