@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.velasco.brewer.storage.PhotoStorage;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
+
 public class PhotoStorageLocal implements PhotoStorage {
 
 	private static final Logger logger = LoggerFactory.getLogger(PhotoStorageLocal.class);
@@ -57,6 +60,31 @@ public class PhotoStorageLocal implements PhotoStorage {
 			return Files.readAllBytes(this.temporaryLocal.resolve(this.temporaryLocal.resolve(name)));
 		} catch (IOException e) {
 			throw new RuntimeException("Erro lendo a foto temporária");
+		}
+	}
+	
+	@Override
+	public void save(String photo) {
+		try {
+			Files.move(this.temporaryLocal.resolve(photo), this.local.resolve(photo));
+		} catch (IOException e) {
+			throw new RuntimeException("Error moving photo to final destiny");
+		}
+		
+		try {
+			Thumbnails.of(this.local.resolve(photo).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+			throw new RuntimeException("Error resizing photo");
+		};
+		
+	}
+	
+	@Override
+	public byte[] recover(String name) {
+		try {
+			return Files.readAllBytes(this.local.resolve(this.local.resolve(name)));
+		} catch (IOException e) {
+			throw new RuntimeException("Error reading photo");
 		}
 	}
 	
