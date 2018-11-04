@@ -1,5 +1,6 @@
  package com.velasco.brewer.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.velasco.brewer.controller.page.PageWrapper;
 import com.velasco.brewer.model.Beer;
 import com.velasco.brewer.model.Flavor;
 import com.velasco.brewer.model.Origin;
@@ -60,14 +62,16 @@ public class BeersController {
 	}
 	
 	@GetMapping
-	public ModelAndView search(BeerFilter beerFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
+	public ModelAndView search(BeerFilter beerFilter, BindingResult result,
+			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("beer/BeerSearch");
 		mv.addObject("flavors", Flavor.values());
 		mv.addObject("styles", styles.findAll());
 		mv.addObject("origins", Origin.values());
 		
-		Page<Beer> page = beers.filter(beerFilter, pageable);
-		mv.addObject("page", page);
+		PageWrapper<Beer> pageWrapper = new PageWrapper<>(beers.filter(beerFilter, pageable)
+				, httpServletRequest);
+		mv.addObject("page", pageWrapper);
 		return mv;
 	}
 
