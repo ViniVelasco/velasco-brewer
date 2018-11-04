@@ -1,7 +1,5 @@
  package com.velasco.brewer.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +60,7 @@ public class BeersController {
 	}
 	
 	@GetMapping
-	public ModelAndView search(BeerFilter beerFilter, BindingResult result, @PageableDefault(size = 5) Pageable pageable) {
+	public ModelAndView search(BeerFilter beerFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("beer/BeerSearch");
 		mv.addObject("flavors", Flavor.values());
 		mv.addObject("styles", styles.findAll());
