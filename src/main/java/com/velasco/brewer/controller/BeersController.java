@@ -1,8 +1,11 @@
  package com.velasco.brewer.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -65,7 +68,8 @@ public class BeersController {
 		mv.addObject("styles", styles.findAll());
 		mv.addObject("origins", Origin.values());
 		
-		mv.addObject("beers", beers.filter(beerFilter, pageable));
+		Page<Beer> page = beers.filter(beerFilter, pageable);
+		mv.addObject("page", page);
 		return mv;
 	}
 

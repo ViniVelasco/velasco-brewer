@@ -1,14 +1,15 @@
 package com.velasco.brewer.repository.helper.beer;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -25,7 +26,7 @@ public class BeersImpl implements BeersQueries {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<Beer> filter(BeerFilter filter, Pageable pageable) {
+	public Page<Beer> filter(BeerFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Beer.class);
 		
 		int actualPage = pageable.getPageNumber();
@@ -36,6 +37,12 @@ public class BeersImpl implements BeersQueries {
 		criteria.setFirstResult(firstRegister);
 		criteria.setMaxResults(totalRegistersPerPage);
 		
+		addFilter(filter, criteria);
+		
+		return new PageImpl<>(criteria.list(), pageable, total(filter));
+	}
+
+	private void addFilter(BeerFilter filter, Criteria criteria) {
 		if(filter != null) {
 			if(!StringUtils.isEmpty(filter.getSku())) {
 				criteria.add(Restrictions.eq("sku", filter.getSku()));
@@ -65,8 +72,13 @@ public class BeersImpl implements BeersQueries {
 				criteria.add(Restrictions.le("value", filter.getValueTo())); //less and equal
 			}
 		}
-		
-		return criteria.list();
+	}
+
+	private Long total(BeerFilter filter) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Beer.class);
+		addFilter(filter, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
 	}
 
 	private boolean isStylePresent(BeerFilter filter) {
