@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -24,8 +25,17 @@ public class BeersImpl implements BeersQueries {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<Beer> filter(BeerFilter filter) {
+	public List<Beer> filter(BeerFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Beer.class);
+		
+		int actualPage = pageable.getPageNumber();
+		int totalRegistersPerPage = pageable.getPageSize();
+		int firstRegister = actualPage * totalRegistersPerPage;
+		
+		
+		criteria.setFirstResult(firstRegister);
+		criteria.setMaxResults(totalRegistersPerPage);
+		
 		if(filter != null) {
 			if(!StringUtils.isEmpty(filter.getSku())) {
 				criteria.add(Restrictions.eq("sku", filter.getSku()));
