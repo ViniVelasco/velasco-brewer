@@ -137,9 +137,9 @@
 					<li class="disabled">
 						<a href="#"><span>&laquo;</span></a>
 					</li>
-					<th:block th:each="p : ${#numbers.sequence(1, page.totalPages)}">
-						<li>
-							<a th:href="|?page=${p - 1}|">[[${p}]]</a>
+					<th:block th:each="p : ${#numbers.sequence(1, page.totalPages)}" th:with="pageNumber=${p - 1}, actualPage=${page.number}">
+						<li th:class="${actualPage == pageNumber} ? active">
+							<a th:href="|?page=${pageNumber}|">[[${p}]]</a>
 						</li>
 					</th:block>
 					<li class="disabled">
