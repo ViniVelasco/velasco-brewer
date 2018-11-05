@@ -94,8 +94,26 @@
 				<thead>
 					<tr>
 						<th class="table-beer-col-photo"></th>
-						<th class="table-beer-col-sku">SKU</th>
-						<th class="table-beer-col-name">Nome</th>
+						<th class="table-beer-col-sku">
+							<a th:href="${page.urlOrdered('sku')}" th:remove="${page.empty} ? tag">
+								<span>SKU</span>
+								<span class="dropup" th:remove="${page.descendent('sku')} ? tag"
+									th:if="${page.ordered('sku')}">
+									<span class="caret">
+									</span>
+								</span>
+							</a>
+						</th>
+						<th class="table-beer-col-name">
+							<a th:href="${page.urlOrdered('name')}" th:remove="${page.empty} ? tag">
+								<span>Nome</span>
+								<span class="dropup" th:remove="${page.descendent('name')} ? tag"
+									th:if="${page.ordered('name')}">
+									<span class="caret">
+									</span>
+								</span>
+							</a>
+						</th>
 						<th class="table-beer-col-style">Estilo</th>
 						<th class="table-beer-col-origin">Origem</th>
 						<th class="table-beer-col-value">Valor</th>
