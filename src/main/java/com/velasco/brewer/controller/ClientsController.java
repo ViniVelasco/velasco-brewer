@@ -14,7 +14,7 @@ import com.velasco.brewer.model.Client;
 @Controller
 public class ClientsController {
 	
-	@RequestMapping("/client/new")
+	@RequestMapping("/clients/new")
 	public String create(Client client) {
 		//model.addAttribute(new Beer()); // Make object available to dispatcher
 		return "client/ClientRegister";
