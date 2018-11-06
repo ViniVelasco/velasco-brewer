@@ -53,7 +53,7 @@ public class PageWrapper<T> {
 		
 		String sortValue = String.format("%s,%s", property, invertDirection(property));
 		
-		return uriBuilder.replaceQueryParam("sort", sortValue).build(true).encode().toUriString();
+		return uriBuilderOrder.replaceQueryParam("sort", sortValue).build(true).encode().toUriString();
 	}
 	
 	public String invertDirection(String property) {

@@ -6,24 +6,27 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 
 import com.velasco.brewer.model.Beer;
 import com.velasco.brewer.repository.filter.BeerFilter;
+import com.velasco.brewer.repository.pagination.PaginationUtil;
 
 public class BeersImpl implements BeersQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginationUtil paginationUtil;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -31,21 +34,7 @@ public class BeersImpl implements BeersQueries {
 	public Page<Beer> filter(BeerFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Beer.class);
 		
-		int actualPage = pageable.getPageNumber();
-		int totalRegistersPerPage = pageable.getPageSize();
-		int firstRegister = actualPage * totalRegistersPerPage;
-		
-		
-		criteria.setFirstResult(firstRegister);
-		criteria.setMaxResults(totalRegistersPerPage);
-		
-		Sort sort = pageable.getSort();
-		
-		if (sort != null) {
-			Sort.Order order = sort.iterator().next();
-			String field = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(field) : Order.desc(field));
-		}
+		paginationUtil.prepare(criteria, pageable);
 		
 		addFilter(filter, criteria);
 		

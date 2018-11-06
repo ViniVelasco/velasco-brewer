@@ -4,8 +4,8 @@
 <th:block th:fragment="order (page, property, text)">
 	<a th:href="${page.urlOrdered(property)}" th:remove="${page.empty} ? tag">
 		<span th:text="${text}"></span>
-		<span class="dropup" th:remove="${page.descendent(property,)} ? tag"
-			th:if="${page.ordered(property,)}">
+		<span class="dropup" th:remove="${page.descendent(property)} ? tag"
+			th:if="${page.ordered(property)}">
 			<span class="caret">
 			</span>
 		</span>

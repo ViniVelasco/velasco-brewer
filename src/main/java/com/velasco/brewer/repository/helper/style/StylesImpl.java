@@ -6,23 +6,26 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.velasco.brewer.model.Style;
 import com.velasco.brewer.repository.filter.StyleFilter;
+import com.velasco.brewer.repository.pagination.PaginationUtil;
 
 public class StylesImpl implements StylesQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginationUtil paginationUtil;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -30,20 +33,7 @@ public class StylesImpl implements StylesQueries {
 	public Page<Style> filter(StyleFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Style.class);
 		
-		int actualPage = pageable.getPageNumber();
-		int totalRegistersPerPage = pageable.getPageSize();
-		int firstRegister = actualPage * totalRegistersPerPage;
-		
-		criteria.setFirstResult(firstRegister);
-		criteria.setMaxResults(totalRegistersPerPage);
-		
-		Sort sort = pageable.getSort();
-		
-		if (sort != null) {
-			Sort.Order order = sort.iterator().next();
-			String field = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(field) : Order.desc(field));
-		}
+		paginationUtil.prepare(criteria, pageable);
 		
 		addFilter(filter, criteria);
 		
