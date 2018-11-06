@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layouts/PatternLayout'"
+	xmlns:brewer="http://brewer.velasco.com">
+<head>
+	<title>Pesquisa de Estilo</title>
+</head>
+<body>
+<section class="aw-layout-content  js-content" layout:fragment="content">
+	<div class="page-header">
+		<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>Pesquisa de Estilo</h1>
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/styles/new}">
+								<i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-xs hidden-sm">Novo Estilo</span>
+							</a>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${styleFilter}">
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="name">Nome</label>
+					<input type="text" class="form-control" id="name" autofocus="autofocus" th:field="*{name}"/>
+				</div>
+			</div>
+			
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		
+		<div class="table-responsive bw-simple-table">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="table-beer-col-sku">Código</th>
+						<th class="table-beer-col-name">
+							<brewer:order page="${page}" field="name" text="Nome">
+						</th>
+						<th class="table-beer-col-actions"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="style : ${page.content}">
+						<td class="text-center" th:text="${style.id}">234</td>
+						<td th:text="${style.name}">Pilsner</td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs" title="Editar"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs" title="Excluir">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+						
+					</tr>
+					
+					<tr th:if="${page.empty}">
+						<td colspan="7">Nenhum estilo encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="col-sm-12 text-center" th:if="${not page.empty}">
+			<nav>
+				<ul class="pagination pagination-sm" th:with="actualPage = ${page.actualPage}"> 
+					<li th:class="${page.first} ? disabled">
+						<a th:href="${page.urlForPage(actualPage- 1)}" th:remove="${page.first} ? tag"><span>&laquo;</span></a>
+					</li>
+					<th:block th:each="p : ${#numbers.sequence(1, page.totalPages)}" th:with="pageNumber=${p - 1}">
+						<li th:class="${actualPage == pageNumber} ? active">
+							<a th:href="${page.urlForPage(pageNumber)}">[[${p}]]</a>
+						</li>
+					</th:block>
+					<li th:class="${page.last} ? disabled">
+						<a th:href="${page.urlForPage(actualPage + 1)}" th:remove="${page.last} ? tag"><span>&raquo;</span></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		
+		
+	</div>
+	
+</section>
+</body>
+</html>

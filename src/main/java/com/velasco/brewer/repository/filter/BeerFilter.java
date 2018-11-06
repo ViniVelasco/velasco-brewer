@@ -16,6 +16,7 @@ public class BeerFilter {
 	private Origin origin;
 	private BigDecimal valueTo;
 	private BigDecimal valueIn;
+	
 	public String getSku() {
 		return sku;
 	}
