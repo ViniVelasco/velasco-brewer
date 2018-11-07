@@ -2,6 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	layout:decorator="'layouts/PatternLayout'">
 <head>
 	<title>Cadastro de Cliente</title>
@@ -28,14 +29,13 @@
 				<div class="col-sm-4 form-group bw-required">
 					<label for=peopleType>Tipo Pessoa</label>
 					<div>
-						<div class="radio radio-inline">
-							<input type="radio" name="peopleType" id="id_FISICA" class="js-radio-people-type" data-document="CPF" data-maskara="000.000.000-00">
-							<label class="control-label" for="id_FISICA">Física</label>
-						</div>
-						<div class="radio radio-inline">
-							<input type="radio" name="peopleType" id="id_JURIDICA"  class="js-radio-people-type" data-document="CNPJ" data-maskara="00.000.000/0000-00">
-							<label class="control-label" for="id_JURIDICA">Jurídica</label>
-						</div>
+						<th:block th:each="peopleType : ${peopleTypes}">
+							<div class="radio radio-inline">
+								<input type="radio" name="peopleType" th:id="|id_${peopleType}|" data:document="${peopleType.document}" data:maskara="${peopleType.mask}"
+									class="js-radio-people-type">
+								<label class="control-label" th:for="|id_${peopleType}|" th:text="${peopleType.description}">Física</label>
+							</div>
+						</th:block>
 					</div>
 				</div>
 				<div class="col-sm-8 form-group bw-required">
