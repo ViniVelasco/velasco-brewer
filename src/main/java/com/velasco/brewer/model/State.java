@@ -18,7 +18,7 @@ public class State implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@NotNull(message = "Nome é obrigatório")
 	@Size(min = 1, max = 15, message = "O tamanho do nome deve estar entre 1 e 20")
@@ -27,12 +27,16 @@ public class State implements Serializable {
 	@NotNull
 	private String initials;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getName() {
