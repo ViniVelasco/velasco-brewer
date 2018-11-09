@@ -1,5 +1,7 @@
 package com.velasco.brewer.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -7,8 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class Address {
+public class Address implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "public_place")
 	private String publicPlace;
 	
