@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Embeddable
-public class Address implements Serializable{
+public class Address implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -25,6 +25,9 @@ public class Address implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "id_city")
 	private City city;
+	
+	@Transient
+	private State state;
 	
 	public String getPublicPlace() {
 		return publicPlace;
@@ -55,6 +58,12 @@ public class Address implements Serializable{
 	}
 	public void setCity(City city) {
 		this.city = city;
+	}
+	public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
 	}
 
 }

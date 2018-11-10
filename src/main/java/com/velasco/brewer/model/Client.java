@@ -11,9 +11,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import com.velasco.brewer.model.validation.ClientGroupSequenceProvider;
+import com.velasco.brewer.model.validation.group.CnpjGroup;
+import com.velasco.brewer.model.validation.group.CpfGroup;
+
 
 @Entity
 @Table(name = "client")
+@GroupSequenceProvider(ClientGroupSequenceProvider.class)
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,17 +35,24 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "Nome é obrigatório")
 	private String name;
 	
+	@NotNull(message = "Tipo pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "people_type")
 	private PeopleTyple peopleType;
 	
+	
+	@CPF(groups = CpfGroup.class)
+	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
+	@NotBlank(message = "CPF/CNPJ é obrigatório")
 	private String cpfCnpj;
 	
 	private String phone;
 	
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@Embedded
