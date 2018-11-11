@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -57,6 +59,11 @@ public class Client implements Serializable {
 	
 	@Embedded
 	private Address address;
+	
+	@PrePersist @PreUpdate
+	private void preInsertPreUpdate() {
+		this.cpfCnpj = this.cpfCnpj.replaceAll("\\.|-|/", "");
+	}
 
 	public Long getId() {
 		return id;

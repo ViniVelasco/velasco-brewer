@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.velasco.brewer.model.Client;
 import com.velasco.brewer.model.PeopleTyple;
 import com.velasco.brewer.repository.States;
+import com.velasco.brewer.service.ClientRegisterService;
 
 @Controller
 @RequestMapping("/clients")
@@ -20,6 +21,9 @@ public class ClientsController {
 	
 	@Autowired
 	private States states;
+	
+	@Autowired
+	private ClientRegisterService clientRegisterService;
 
 	
 	@RequestMapping("/new")
@@ -39,7 +43,7 @@ public class ClientsController {
 			return create(client);
 		}
 		
-		
+		clientRegisterService.save(client);
 		attributes.addFlashAttribute("message", "Cliente salvo com sucesso");
 		return new ModelAndView("redirect:/clients/new");
 	}

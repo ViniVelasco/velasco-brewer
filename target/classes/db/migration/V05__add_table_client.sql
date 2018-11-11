@@ -2,7 +2,7 @@
 CREATE TABLE client (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80) NOT NULL,
-    peopleType VARCHAR(15) NOT NULL,
+    people_type VARCHAR(15) NOT NULL,
     cpf_cnpj VARCHAR(30) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(50) NOT NULL,
