@@ -12,9 +12,17 @@
 <section class="aw-layout-content  js-content" layout:fragment="content">
 	<div class="page-header">
 		<div class="container-fluid">
-			<h1>
-				Cadastro de cliente
-			</h1>
+			<div class="col-sm-10">
+				<h1>Cadastro de Cliente</h1>
+			</div>
+			
+			<div class="col-sm-2">
+				<div class="aw-page-header-controls">
+					<a class="btn btn-default" th:href="@{/clients/}">
+						<i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-xs hidden-sm">Pesquisar Cliente</span>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	

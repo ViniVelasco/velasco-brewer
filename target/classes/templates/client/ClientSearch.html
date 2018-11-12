@@ -48,24 +48,26 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="table-beer-col-sku">
+						<th class="table-clientes-col-nome">
 							<brewer:order page="${page}" field="name" text="Nome">
 						</th>
-						<th class="table-beer-col-name">
+						<th class="table-clientes-col-tipo-pessoa">
 							<brewer:order page="${page}" field="peopleType" text="Tipo Pessoa">
 						</th>
-						<th class="table-beer-col-style">CPF/CNPJ</th>
-						<th class="table-beer-col-origin">Telefone</th>
+						<th class="table-clientes-col-cpf-cnpj">CPF/CNPJ</th>
+						<th class="table-clientes-col-telefone">Telefone</th>
+						<th class="table-clientes-col-cidade-estado">Cidade/Estado</th>
 						<th class="table-beer-col-actions"></th>
 					</tr>
 				</thead>
 				
 				<tbody>
 					<tr th:each="client : ${page.content}">
-						<td class="text-center" th:text="${client.name}">João Amoêdo</td>
-						<td th:text="${client.peopleType}">Física</td>
-						<td th:text="${client.cpfCnpj}">09876544333</td>
-						<td th:text="${client.phone}">62998411212</td>
+						<td th:text="${client.name}">João Amoêdo</td>
+						<td class="text-center" th:text="${client.peopleType}">Física</td>
+						<td class="text-right" th:text="${client.cpfCnpj}">09876544333</td>
+						<td class="text-right" th:text="${client.phone}">62998411212</td>
+						<td class="text-right" th:text="${client.address.nameCityInitialsState}"></td>
 						<td class="text-center">
 							<a class="btn  btn-link  btn-xs" title="Editar"> 
 								<i class="glyphicon glyphicon-pencil"></i>

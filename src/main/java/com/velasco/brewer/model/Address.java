@@ -65,5 +65,13 @@ public class Address implements Serializable {
 	public void setState(State state) {
 		this.state = state;
 	}
+	
+	public String getNameCityInitialsState() {
+		if(this.city != null) {
+			return this.city.getName() + "/" + this.city.getState().getInitials();
+		}
+		
+		return null;
+	}
 
 }
