@@ -14,6 +14,7 @@ import com.velasco.brewer.model.Client;
 import com.velasco.brewer.model.PeopleTyple;
 import com.velasco.brewer.repository.States;
 import com.velasco.brewer.service.ClientRegisterService;
+import com.velasco.brewer.service.exception.CpfCnpjAlreadyRegisteredException;
 
 @Controller
 @RequestMapping("/clients")
@@ -42,8 +43,13 @@ public class ClientsController {
 		if(result.hasErrors()) {
 			return create(client);
 		}
-		
-		clientRegisterService.save(client);
+		try {
+			clientRegisterService.save(client);
+		} catch(CpfCnpjAlreadyRegisteredException e) {
+			result.rejectValue("cpfCnpj", e.getMessage(), e.getMessage());
+			
+			return create(client);
+		}
 		attributes.addFlashAttribute("message", "Cliente salvo com sucesso");
 		return new ModelAndView("redirect:/clients/new");
 	}

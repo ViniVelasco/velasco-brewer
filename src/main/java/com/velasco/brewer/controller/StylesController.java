@@ -20,11 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.velasco.brewer.controller.page.PageWrapper;
-import com.velasco.brewer.exception.NameStyleAlreadyRegisteredException;
 import com.velasco.brewer.model.Style;
 import com.velasco.brewer.repository.Styles;
 import com.velasco.brewer.repository.filter.StyleFilter;
 import com.velasco.brewer.service.StyleRegisterService;
+import com.velasco.brewer.service.exception.NameStyleAlreadyRegisteredException;
 
 
 @Controller

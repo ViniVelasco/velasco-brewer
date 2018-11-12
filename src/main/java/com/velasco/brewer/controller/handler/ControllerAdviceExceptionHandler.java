@@ -3,7 +3,8 @@ package com.velasco.brewer.controller.handler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.velasco.brewer.exception.NameStyleAlreadyRegisteredException;
+
+import com.velasco.brewer.service.exception.NameStyleAlreadyRegisteredException;
 
 @ControllerAdvice
 public class ControllerAdviceExceptionHandler {

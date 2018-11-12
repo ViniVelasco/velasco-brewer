@@ -47,5 +47,9 @@ public enum PeopleTyple {
 	public Class<?> getGroup() {
 		return group;
 	}
+	
+	public static String removeMask(String cpfCnpj) {
+		return cpfCnpj.replaceAll("\\.|-|/", "");
+	}
 
 }

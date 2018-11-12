@@ -1,4 +1,4 @@
-package com.velasco.brewer.exception;
+package com.velasco.brewer.service.exception;
 
 public class NameStyleAlreadyRegisteredException extends RuntimeException {
 	

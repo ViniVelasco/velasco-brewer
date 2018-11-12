@@ -62,7 +62,7 @@ public class Client implements Serializable {
 	
 	@PrePersist @PreUpdate
 	private void preInsertPreUpdate() {
-		this.cpfCnpj = this.cpfCnpj.replaceAll("\\.|-|/", "");
+		this.cpfCnpj = PeopleTyple.removeMask(this.cpfCnpj);
 	}
 
 	public Long getId() {
@@ -119,6 +119,10 @@ public class Client implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	public String getCpfCnpjWithotFormat() {
+		return PeopleTyple.removeMask(this.cpfCnpj);
 	}
 
 	@Override

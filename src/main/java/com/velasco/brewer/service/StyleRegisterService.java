@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.velasco.brewer.exception.NameStyleAlreadyRegisteredException;
 import com.velasco.brewer.model.Style;
 import com.velasco.brewer.repository.Styles;
+import com.velasco.brewer.service.exception.NameStyleAlreadyRegisteredException;
 
 @Service
 public class StyleRegisterService {
