@@ -25,42 +25,41 @@ import com.velasco.brewer.model.validation.ClientGroupSequenceProvider;
 import com.velasco.brewer.model.validation.group.CnpjGroup;
 import com.velasco.brewer.model.validation.group.CpfGroup;
 
-
 @Entity
 @Table(name = "client")
 @GroupSequenceProvider(ClientGroupSequenceProvider.class)
 public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "Nome é obrigatório")
 	private String name;
-	
+
 	@NotNull(message = "Tipo pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "people_type")
 	private PeopleTyple peopleType;
-	
-	
+
 	@CPF(groups = CpfGroup.class)
 	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
 	@NotBlank(message = "CPF/CNPJ é obrigatório")
 	private String cpfCnpj;
-	
+
 	private String phone;
-	
+
 	@Email(message = "E-mail inválido")
 	private String email;
-	
+
 	@Embedded
 	private Address address;
-	
-	@PrePersist @PreUpdate
+
+	@PrePersist
+	@PreUpdate
 	private void preInsertPreUpdate() {
 		this.cpfCnpj = PeopleTyple.removeMask(this.cpfCnpj);
 	}
@@ -120,7 +119,7 @@ public class Client implements Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
+
 	public String getCpfCnpjWithotFormat() {
 		return PeopleTyple.removeMask(this.cpfCnpj);
 	}
