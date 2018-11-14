@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -51,6 +52,7 @@ public class CitiesController {
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@CacheEvict(value = "cities", key = "#city.state.id", condition = "#city.hasState()")
 	public ModelAndView register(@Valid City city, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			model.addAttribute(city);
@@ -80,7 +82,7 @@ public class CitiesController {
 	}
 	
 	// /brewer/cities?state=2
-	@Cacheable("cities")
+	@Cacheable(value = "cities", key = "#id")
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<City> searchByStateId(@RequestParam(name = "state", defaultValue = "-1") Long id) {
 		try {
