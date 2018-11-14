@@ -18,7 +18,7 @@ public class CitiesRegisterService {
 	
 	@Transactional
 	public void save(City city) {
-		Optional<City> citiesOptional = cities.findByNameIgnoreCase(city.getName());
+		Optional<City> citiesOptional = cities.findByNameAndState(city.getName(), city.getState());
 		
 		if(citiesOptional.isPresent()) {
 			throw new NameCityAlreadyRegisteredException("Nome da cidade já cadastrada");

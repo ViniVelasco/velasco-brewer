@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layouts/PatternLayout"
+	xmlns:brewer="http://brewer.velasco.com">
+<head>
+	<title>Pesquisa de Cerveja</title>
+</head>
+<body>
+<section class="aw-layout-content  js-content" layout:fragment="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>Pesquisa de Cidades</h1>
+				</div>
+				
+				<div class="col-sm-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/cities/new}">
+							<i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-xs hidden-sm">Nova Cidade</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${cityFilter}">
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<label for="state">Estado</label>
+					<select id="state" class="form-control"  th:field="*{state}" >
+						<option value="">Selecione o Estado</option>
+						<option th:each="state : ${states}" th:value="${state.id}" th:text="${state.name}">São Paulo</option>
+					</select>
+				</div>
+				<div class="form-group  col-sm-8">
+					<label class="control-label" for="name">Nome</label>
+					<input type="text" class="form-control" id="name" th:field="*{name}"/>
+				</div>
+			</div>
+			
+		
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		
+		<div class="table-responsive bw-simple-table">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="table-beer-col-nome">
+							<brewer:order page="${page}" field="name" text="Nome">
+						</th>
+						<th class="table-beer-col-name">
+							<brewer:order page="${page}" field="state" text="Estado">
+						</th>
+						<th class="table-beer-col-actions"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="city : ${page.content}">
+						<td th:text="${city.name}">São Paulo</td>
+						<td th:text="${city.state.name}">São Paulo</td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs" title="Editar"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs" title="Excluir">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+						
+					</tr>
+					
+					<tr th:if="${page.empty}">
+						<td colspan="7">Nenhuma cidade encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<brewer:pagination page="${page}"/>	
+		
+		
+	</div>
+</section>
