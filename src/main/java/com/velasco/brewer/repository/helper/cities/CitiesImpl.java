@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.velasco.brewer.model.Beer;
 import com.velasco.brewer.model.City;
 import com.velasco.brewer.repository.filter.CityFilter;
 import com.velasco.brewer.repository.pagination.PaginationUtil;

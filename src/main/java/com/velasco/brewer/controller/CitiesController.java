@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -79,6 +80,7 @@ public class CitiesController {
 	}
 	
 	// /brewer/cities?state=2
+	@Cacheable("cities")
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<City> searchByStateId(@RequestParam(name = "state", defaultValue = "-1") Long id) {
 		try {
