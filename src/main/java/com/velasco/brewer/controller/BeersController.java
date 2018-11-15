@@ -24,7 +24,6 @@ import com.velasco.brewer.repository.Styles;
 import com.velasco.brewer.repository.filter.BeerFilter;
 import com.velasco.brewer.service.BeerRegisterService;
 
-
 @Controller
 @RequestMapping("/beers")
 public class BeersController {

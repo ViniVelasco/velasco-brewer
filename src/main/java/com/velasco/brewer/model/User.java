@@ -12,11 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.velasco.brewer.validation.ConfirmationAttribute;
+
+@ConfirmationAttribute(attribute = "password", confirmAttribute = "confirmPassword", message = "Confirmação da senha não confere")
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -35,13 +39,15 @@ public class User implements Serializable {
 	private String email;
 	
 	
-	private String password;
+	private String password;	
+	
+	@Transient
+	private String confirmPassword;
 	
 	private Boolean active;
 	
 	//@NotNull(message = "Data de nascimento é obrigatória")
 	private LocalDate birthday;
-	
 
 	@ManyToMany
 	@JoinTable(name = "group_user", joinColumns = @JoinColumn(name = "id_user")
@@ -93,6 +99,14 @@ public class User implements Serializable {
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
 	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
