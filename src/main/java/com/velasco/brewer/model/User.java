@@ -39,9 +39,14 @@ public class User implements Serializable {
 	
 	private Boolean active;
 	
-	@NotNull(message = "Data de nascimento é obrigatória")
+	//@NotNull(message = "Data de nascimento é obrigatória")
 	private LocalDate birthday;
 	
+
+	@ManyToMany
+	@JoinTable(name = "group_user", joinColumns = @JoinColumn(name = "id_user")
+				, inverseJoinColumns = @JoinColumn(name = "id_group"))	
+	@NotNull(message = "Selecione pelo menos um grupo")
 	private List<Group> groups;
 	
 	public Long getId() {
@@ -80,10 +85,7 @@ public class User implements Serializable {
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
-	
-	@NotNull(message = "Selecione pelo menos um grupo")
-	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns =  @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_group"))
+
 	public List<Group> getGroups() {
 		return groups;
 	}
