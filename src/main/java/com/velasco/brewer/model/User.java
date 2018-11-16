@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -52,7 +51,7 @@ public class User implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "group_user", joinColumns = @JoinColumn(name = "id_user")
 				, inverseJoinColumns = @JoinColumn(name = "id_group"))	
-	@NotNull(message = "Selecione pelo menos um grupo")
+	//@NotNull(message = "Selecione pelo menos um grupo")
 	private List<Group> groups;
 	
 	public Long getId() {
