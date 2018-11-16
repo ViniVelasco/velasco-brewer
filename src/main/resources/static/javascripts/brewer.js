@@ -64,7 +64,7 @@ Brewer.MaskDate = (function() {
 		this.inputDate.datepicker({
 			orientation: 'bottom',
 			language: 'pt-BR',
-			autoclose: 'true'
+			autoclose: true
 		});
 	}
 	
@@ -83,4 +83,5 @@ $(function() {
 	
 	var maskDate = new Brewer.MaskDate();
 	maskDate.enable();
+	
 });

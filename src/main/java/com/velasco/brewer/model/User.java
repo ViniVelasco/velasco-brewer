@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -43,6 +44,7 @@ public class User implements Serializable {
 	@Transient
 	private String confirmPassword;
 	
+	@NotNull(message = "Status é obrigatório")
 	private Boolean active;
 	
 	//@NotNull(message = "Data de nascimento é obrigatória")
