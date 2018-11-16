@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/brewer.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}"/>
 	
 	<link rel="shortcut icon" th:href="@{/images/favicon.png}">
 
@@ -45,6 +46,10 @@
 
 <script th:src="@{/javascripts/brewer.js}"></script>
 
-<th:block layout:fragment="javascript-extra"></th:block>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/client.mask-cpf-cnpj.js}"></script>
+	<script th:src="@{/javascripts/client.combo-city-state.js}"></script>
+
+</th:block>
 </body>
 </html>
