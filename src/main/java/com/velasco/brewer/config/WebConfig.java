@@ -38,6 +38,7 @@ import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDiale
 import com.google.common.cache.CacheBuilder;
 import com.velasco.brewer.controller.BeersController;
 import com.velasco.brewer.controller.converter.CityConverter;
+import com.velasco.brewer.controller.converter.GroupConverter;
 import com.velasco.brewer.controller.converter.StateConverter;
 import com.velasco.brewer.controller.converter.StyleConverter;
 import com.velasco.brewer.thymeleaf.BrewerDialect;
@@ -99,6 +100,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new StyleConverter());
 		conversionService.addConverter(new CityConverter());
 		conversionService.addConverter(new StateConverter());
+		conversionService.addConverter(new GroupConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);

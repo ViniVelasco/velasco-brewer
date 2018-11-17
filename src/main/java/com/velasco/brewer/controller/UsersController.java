@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.velasco.brewer.model.User;
+import com.velasco.brewer.repository.Grupos;
 import com.velasco.brewer.service.UserRegisterService;
 import com.velasco.brewer.service.exception.EmailUserAlreadyRegisteredException;
 
@@ -19,12 +20,15 @@ import com.velasco.brewer.service.exception.EmailUserAlreadyRegisteredException;
 public class UsersController {
 	
 	@Autowired
+	private Grupos groups;
+	
+	@Autowired
 	private UserRegisterService userRegisterService;
 
 	@RequestMapping("/new")
 	public ModelAndView create(User user) {
 		ModelAndView mv = new ModelAndView("user/UserRegister");
-		
+		mv.addObject("groups", groups.findAll());
 		return mv;
 	}
 	

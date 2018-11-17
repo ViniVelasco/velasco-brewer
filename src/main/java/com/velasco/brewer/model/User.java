@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,11 +51,11 @@ public class User implements Serializable {
 	//@NotNull(message = "Data de nascimento é obrigatória")
 	private LocalDate birthday;
 
+	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
-	@JoinTable(name = "group_user", joinColumns = @JoinColumn(name = "id_user")
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "id_user")
 				, inverseJoinColumns = @JoinColumn(name = "id_group"))	
-	//@NotNull(message = "Selecione pelo menos um grupo")
-	private List<Group> groups;
+	private List<Grupo> grupos;
 	
 	public Long getId() {
 		return id;
@@ -92,15 +93,14 @@ public class User implements Serializable {
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
-
-	public List<Group> getGroups() {
-		return groups;
-	}
 	
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
-
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}

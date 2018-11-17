@@ -7,7 +7,7 @@ CREATE TABLE user (
     birthday DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `group` (
+CREATE TABLE grupo (
     id BIGINT(20) PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -22,13 +22,13 @@ CREATE TABLE user_group (
     id_group BIGINT(20) NOT NULL,
     PRIMARY KEY (id_user, id_group),
     FOREIGN KEY (id_user) REFERENCES user(id),
-    FOREIGN KEY (id_group) REFERENCES `group`(id)
+    FOREIGN KEY (id_group) REFERENCES grupo(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE permission_group (
     id_group BIGINT(20) NOT NULL,
     id_permission BIGINT(20) NOT NULL,
     PRIMARY KEY (id_group, id_permission),
-    FOREIGN KEY (id_group) REFERENCES `group`(id),
+    FOREIGN KEY (id_group) REFERENCES grupo(id),
     FOREIGN KEY (id_permission) REFERENCES permission(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

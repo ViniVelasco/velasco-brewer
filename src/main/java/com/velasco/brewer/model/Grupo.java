@@ -12,11 +12,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "group")
-public class Group implements Serializable {
+@Table(name ="grupo")
+public class Grupo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,11 +23,10 @@ public class Group implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O nome não pode ser nulo")
 	private String name;
 	
 	@ManyToMany
-	@JoinTable(name = "permission_group", joinColumns =  @JoinColumn(name = "id_group"), inverseJoinColumns = @JoinColumn(name = "id_permission"))
+	@JoinTable(name = "permission_group", joinColumns = @JoinColumn(name = "id_group"), inverseJoinColumns = @JoinColumn(name = "id_permission"))
 	private List<Permission> permissions;
 	
 	public Long getId() {
@@ -65,7 +63,7 @@ public class Group implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Group other = (Group) obj;
+		Grupo other = (Grupo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
