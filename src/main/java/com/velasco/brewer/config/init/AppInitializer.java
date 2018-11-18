@@ -9,9 +9,9 @@ import javax.servlet.ServletRegistration.Dynamic;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.velasco.brewer.config.JPAConfig;
+import com.velasco.brewer.config.SecurityConfig;
 import com.velasco.brewer.config.ServiceConfig;
 import com.velasco.brewer.config.WebConfig;
-import com.velasco.brewer.controller.SecurityConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
