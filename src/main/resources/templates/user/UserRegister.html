@@ -40,9 +40,9 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-3 form-group" brewer:classforerror="password">
+				<div class="col-sm-3 form-group" brewer:classforerror="password" th:classappend="${user.new} ? bw-required">
 					<label for="password" class="control-label">Senha</label>
-					<input id="password" type="password" class="form-control" th:field="*{password}"/>
+					<input type="password" class="form-control" id="password" th:field="*{password}"/>
 				</div>
 				<div class="col-sm-3 form-group" brewer:classforerror="confirmPassword">
 					<label for="passwordConfirm" class="control-label">Confirmação de Senha</label>

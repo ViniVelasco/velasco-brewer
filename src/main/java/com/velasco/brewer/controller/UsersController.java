@@ -14,6 +14,7 @@ import com.velasco.brewer.model.User;
 import com.velasco.brewer.repository.Grupos;
 import com.velasco.brewer.service.UserRegisterService;
 import com.velasco.brewer.service.exception.EmailUserAlreadyRegisteredException;
+import com.velasco.brewer.service.exception.PasswordRequiredUserException;
 
 @Controller
 @RequestMapping("/users")
@@ -42,6 +43,9 @@ public class UsersController {
 			userRegisterService.save(user);
 		} catch(EmailUserAlreadyRegisteredException e) {
 			result.rejectValue("email", e.getMessage(), e.getMessage());
+			return create(user);
+		} catch(PasswordRequiredUserException e) {
+			result.rejectValue("password", e.getMessage(), e.getMessage());
 			return create(user);
 		}
 		

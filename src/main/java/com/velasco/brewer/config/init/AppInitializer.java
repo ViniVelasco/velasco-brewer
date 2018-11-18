@@ -11,12 +11,13 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.velasco.brewer.config.JPAConfig;
 import com.velasco.brewer.config.ServiceConfig;
 import com.velasco.brewer.config.WebConfig;
+import com.velasco.brewer.controller.SecurityConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JPAConfig.class, ServiceConfig.class };
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class, SecurityConfig.class };
 	}
 
 	@Override

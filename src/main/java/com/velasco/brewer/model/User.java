@@ -94,6 +94,9 @@ public class User implements Serializable {
 		this.birthday = birthday;
 	}
 	
+	public boolean isNew() {
+		return this.id == null;
+	}
 	
 	public List<Grupo> getGrupos() {
 		return grupos;

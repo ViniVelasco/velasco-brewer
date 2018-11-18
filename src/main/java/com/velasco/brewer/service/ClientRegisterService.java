@@ -10,8 +10,6 @@ import com.velasco.brewer.model.Client;
 import com.velasco.brewer.repository.Clients;
 import com.velasco.brewer.service.exception.CpfCnpjAlreadyRegisteredException;
 
-
-
 @Service
 public class ClientRegisterService {
 	
