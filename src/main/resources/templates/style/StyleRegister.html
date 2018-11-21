@@ -18,7 +18,7 @@
 	
 	<th:block th:include="fragments/SuccessMessage"></th:block>
 	<div class="container-fluid">
-		<form method="POST" th:object="${style}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${style}" class="form-vertical  js-form-loading" th:action="@{/styles/new}">
 			<th:block th:include="fragments/ValidationErrorMessages"></th:block>
 		
 			<div class="row">

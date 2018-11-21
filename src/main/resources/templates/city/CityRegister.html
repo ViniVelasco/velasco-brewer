@@ -33,7 +33,7 @@
 			<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado.
 		</div> -->
 
-		<form method="POST" th:object="${city}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${city}" class="form-vertical  js-form-loading" th:action="@{/cities/new}">
 			<brewer:message />
 			
 			<div class="row">
