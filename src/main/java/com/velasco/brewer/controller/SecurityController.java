@@ -19,4 +19,9 @@ public class SecurityController {
 		return "Login";
 	}
 	
+	@GetMapping("/403")
+	public String accessDenied() {
+		return "403";
+	}
+	
 }
