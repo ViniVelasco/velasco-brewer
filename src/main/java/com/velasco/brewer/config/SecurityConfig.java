@@ -48,13 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logou"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.and()
 			.exceptionHandling()
 				.accessDeniedPage("/403")
 				.and()
 			.sessionManagement()
-				.maximumSessions(1);
+				.invalidSessionUrl("/login")
+				.maximumSessions(1)
+				.expiredUrl("/login");
 	}
 	
 	@Bean
